@@ -1,0 +1,10 @@
+[package]
+name = "ctrl-tex"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+arboard = "3.2" 
+enigo = "0.2" 
+inputbot = "0.5"
+lazy_static = "1.4"
