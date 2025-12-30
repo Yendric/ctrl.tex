@@ -28,7 +28,10 @@ fn handle_conversion() {
     // copy selection
     let _ = enigo.key(Key::Control, Direction::Press);
     thread::sleep(Duration::from_millis(20));
+    #[cfg(target_os = "windows")]
     let _ = enigo.key(Key::C, Direction::Click);
+    #[cfg(not(target_os = "windows"))]
+    let _ = enigo.key(Key::Unicode('c'), Direction::Click);
     thread::sleep(Duration::from_millis(20));
     let _ = enigo.key(Key::Control, Direction::Release);
     thread::sleep(Duration::from_millis(150));
@@ -45,7 +48,10 @@ fn handle_conversion() {
         // paste
         let _ = enigo.key(Key::Control, Direction::Press);
         thread::sleep(Duration::from_millis(20));
+        #[cfg(target_os = "windows")]
         let _ = enigo.key(Key::V, Direction::Click);
+        #[cfg(not(target_os = "windows"))]
+        let _ = enigo.key(Key::Unicode('v'), Direction::Click);
         thread::sleep(Duration::from_millis(20));
         let _ = enigo.key(Key::Control, Direction::Release);
     }
