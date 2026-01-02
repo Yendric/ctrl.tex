@@ -199,6 +199,7 @@ fn to_superscript(s: &str) -> Option<String> {
             ')' => '⁾',
             ',' => 'ʼ',
             '.' => '˙',
+            '*' => '*',
             'a' => 'ᵃ',
             'b' => 'ᵇ',
             'c' => 'ᶜ',
@@ -529,5 +530,11 @@ mod tests {
         assert_eq!(render(r"\dot{x}"), "ẋ");
         assert_eq!(render(r"\ddot{x}"), "ẍ");
         assert_eq!(render(r"\tilde{x}"), "x̃");
+    }
+    #[test]
+    fn test_superscript_star() {
+        assert_eq!(render("x^{*}"), "x*");
+        assert_eq!(render("1^{*}"), "1*");
+        assert_eq!(render("A^*"), "A*");
     }
 }
