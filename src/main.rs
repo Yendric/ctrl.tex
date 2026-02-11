@@ -3,9 +3,11 @@
 use arboard::Clipboard;
 use ctrl_tex::convert_latex_to_unicode;
 use enigo::{Direction, Enigo, Key, Keyboard, Settings};
+#[cfg(target_os = "windows")]
 use inputbot::KeybdKey::*;
 use std::{thread, time::Duration};
 
+#[cfg(target_os = "windows")]
 fn main() {
     LKey.bind(|| {
         if LControlKey.is_pressed() && LShiftKey.is_pressed() {
@@ -15,11 +17,13 @@ fn main() {
     inputbot::handle_input_events();
 }
 
+#[cfg(target_os = "linux")]
+fn main() {
+    handle_conversion();
+}
+
 fn handle_conversion() {
     // wait for hotkey release
-    while LControlKey.is_pressed() || LShiftKey.is_pressed() || LKey.is_pressed() {
-        thread::sleep(Duration::from_millis(10));
-    }
     thread::sleep(Duration::from_millis(50));
 
     let mut enigo = Enigo::new(&Settings::default()).unwrap();
@@ -54,5 +58,8 @@ fn handle_conversion() {
         let _ = enigo.key(Key::Unicode('v'), Direction::Click);
         thread::sleep(Duration::from_millis(20));
         let _ = enigo.key(Key::Control, Direction::Release);
-    }
+    } 
+
+    thread::sleep(Duration::from_secs(2));
 }
+

@@ -5,5 +5,7 @@ edition = "2024"
 
 [dependencies]
 arboard = "3.2" 
-enigo = "0.2" 
+enigo = { version = "0.2", default-features = false, features = ["wayland"]}
+[target.'cfg(windows)'.dependencies]
 inputbot = "0.5"
+
